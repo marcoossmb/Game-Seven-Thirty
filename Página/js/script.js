@@ -76,13 +76,13 @@ const barajarCartas = () =>{
 
 let sumaTot=0
 let sumaMaq=0
+let random= Math.floor(Math.random() * cartas.length)
 
 const pedirCarta = () =>{
-
-  let random= Math.floor(Math.random() * cartas.length)
+  
   let nombreCarta = cartas[random]
 
-    //Crear cartas en el html
+    //Crear cartas
     let carta = document.createElement('IMG')
     carta.src="./imagenes/"+cartas[random]
     jugador_visor.appendChild(carta)
@@ -123,25 +123,97 @@ const pedirCarta = () =>{
     }
 }
 
-const finJugador = () =>{
+const finJugador = () => {
+  let numeroDeCartas= Math.max(1,Math.floor(Math.random() * 5))
 
+  for (let i = 0; i < numeroDeCartas; i++) {
+
+    let randomIndex = Math.floor(Math.random() * cartas.length)
+    let cartaNombre = cartas[randomIndex]
+
+    let cartaImg = document.createElement('img')
+    cartaImg.src = "./imagenes/" + cartaNombre
+    maquina_visor.appendChild(cartaImg)
+
+    let numeroCarta = parseFloat(cartaNombre.substring(0, 2))
+    if (numeroCarta >= 1 && numeroCarta <= 7) {
+      sumaMaq += numeroCarta
+    } else if (numeroCarta >= 10 && numeroCarta <= 12) {
+      sumaMaq += 0.5
+    }
+    maquina_titulo.textContent = sumaMaq
+  }
+  nueva_partida.classList.add("mostrar")
+  plantarse.classList.add("ocultar")
+  pedir.classList.add("ocultar")
+
+  if (sumaMaq > sumaTot && sumaMaq<7.5) {
+    maquina_titulo.textContent = "Gana la máquina con "+sumaMaq+" puntos"
+  } else if (sumaTot < 7.5 && sumaTot!=0) {
+    jugador_titulo.textContent = "Gana el jugador con "+sumaTot+" puntos"
+  } else if (sumaMaq=7.5 && sumaTot==7.5) {
+    maquina_titulo.textContent = "Gana la máquina con "+sumaMaq+" puntos"
+  }
 }
 
 const reiniciarJuego = () => {
-  sumaTot = 0;
-  sumaMaq = 0;
+  sumaTot = 0
+  sumaMaq = 0
 
-  jugador_visor.innerHTML = "";
-  maquina_visor.innerHTML = "";
+  jugador_visor.innerHTML = ""
+  maquina_visor.innerHTML = ""
 
-  barajarCartas();
+  cartas = [
+    "01oros.jpg",
+    "02oros.jpg",
+    "03oros.jpg",
+    "04oros.jpg",
+    "05oros.jpg",
+    "06oros.jpg",
+    "07oros.jpg",
+    "10oros.jpg",
+    "11oros.jpg",
+    "12oros.jpg",
+    "01bastos.jpg",
+    "02bastos.jpg",
+    "03bastos.jpg",
+    "04bastos.jpg",
+    "05bastos.jpg",
+    "06bastos.jpg",
+    "07bastos.jpg",
+    "10bastos.jpg",
+    "11bastos.jpg",
+    "12bastos.jpg",
+    "01espadas.jpg",
+    "02espadas.jpg",
+    "03espadas.jpg",
+    "04espadas.jpg",
+    "05espadas.jpg",
+    "06espadas.jpg",
+    "07espadas.jpg",
+    "10espadas.jpg",
+    "11espadas.jpg",
+    "12espadas.jpg",
+    "01copas.jpg",
+    "02copas.jpg",
+    "03copas.jpg",
+    "04copas.jpg",
+    "05copas.jpg",
+    "06copas.jpg",
+    "07copas.jpg",
+    "10copas.jpg",
+    "11copas.jpg",
+    "12copas.jpg",
+  ];
 
-  nueva_partida.classList.remove("mostrar");
-  plantarse.classList.remove("ocultar");
-  pedir.classList.remove("ocultar");
+  barajarCartas()
 
-  jugador_titulo.textContent = "";
-  maquina_titulo.textContent = "";
+  nueva_partida.classList.remove("mostrar")
+  plantarse.classList.remove("ocultar")
+  pedir.classList.remove("ocultar")
+
+  jugador_titulo.textContent = ""
+  maquina_titulo.textContent = ""
 }
 
 // Eventos
