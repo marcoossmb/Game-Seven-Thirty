@@ -72,20 +72,65 @@ const barajarCartas = () =>{
     cartas[posicion2]=aux
 
   }
-  console.log(cartas)
 }
 
-const pedirCarta = (event) =>{
+let sumaTot=0
+let sumaMaq=0
 
+const pedirCarta = () =>{
+
+  let random= Math.floor(Math.random() * cartas.length)
+  let nombreCarta = cartas[random]
+
+    //Crear cartas en el html
+    let carta = document.createElement('IMG')
+    carta.src="./imagenes/"+cartas[random]
+    jugador_visor.appendChild(carta)
+
+    //Suma del visor del jugador
+    let numeroCarta = parseFloat(nombreCarta.substring(0, 2))
+
+    if (numeroCarta >= 1 && numeroCarta <= 7) {
+      sumaTot += numeroCarta;
+    } else if (numeroCarta >= 10 && numeroCarta <= 12) {
+      sumaTot += 0.5
+    }
+    jugador_titulo.textContent=sumaTot
+
+    //Borrar carta del array
+    cartas.splice(random, 1)
+    
+    //En caso de que al pedir cartas te pases de 7.5
+    if (sumaTot > 7.5) {
+      let carta = document.createElement('IMG')
+      carta.src="./imagenes/"+cartas[random]
+      jugador_visor.appendChild(carta)
+
+      nueva_partida.classList.add("mostrar")
+      plantarse.classList.add("ocultar")
+      pedir.classList.add("ocultar")
+
+      maquina_visor.appendChild(carta)
+
+      let numeroCartaMaq = parseFloat(carta.src.substring(43,45))
+      if (numeroCartaMaq >= 1 && numeroCartaMaq <= 7) {
+        sumaMaq = numeroCartaMaq
+      } else if (numeroCartaMaq >= 10 && numeroCartaMaq <= 12) {
+        sumaMaq = 0.5
+      }
+      
+      maquina_titulo.textContent = "Gana la máquina con "+sumaMaq+" puntos"
+    }
 }
 
 const finJugador = () =>{
 
 }
 
-const reiniciarJuego = () =>{
+const reiniciarJuego = () => {
 
 }
+
 // Eventos
 document.addEventListener("DOMContentLoaded", barajarCartas);
 pedir.addEventListener("click", pedirCarta);
