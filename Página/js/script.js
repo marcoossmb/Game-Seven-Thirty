@@ -128,7 +128,20 @@ const finJugador = () =>{
 }
 
 const reiniciarJuego = () => {
+  sumaTot = 0;
+  sumaMaq = 0;
 
+  jugador_visor.innerHTML = "";
+  maquina_visor.innerHTML = "";
+
+  barajarCartas();
+
+  nueva_partida.classList.remove("mostrar");
+  plantarse.classList.remove("ocultar");
+  pedir.classList.remove("ocultar");
+
+  jugador_titulo.textContent = "";
+  maquina_titulo.textContent = "";
 }
 
 // Eventos
