@@ -59,9 +59,33 @@ let nueva_partida = document.getElementById("nueva_partida");
 let jugada = 0;
 let jugadaJugador = 0;
 
-
 // Funciones
+const barajarCartas = () =>{
+  for(let i=0; i< cartas.length; i++){
 
+    let posicion1= Math.floor(Math.random() * cartas.length)
+    let posicion2= Math.floor(Math.random() * cartas.length)
+
+    let aux = cartas[posicion1]
+
+    cartas[posicion1]=cartas[posicion2]
+    cartas[posicion2]=aux
+
+  }
+  console.log(cartas)
+}
+
+const pedirCarta = (event) =>{
+
+}
+
+const finJugador = () =>{
+
+}
+
+const reiniciarJuego = () =>{
+
+}
 // Eventos
 document.addEventListener("DOMContentLoaded", barajarCartas);
 pedir.addEventListener("click", pedirCarta);
